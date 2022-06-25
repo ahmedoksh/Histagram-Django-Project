@@ -10,7 +10,7 @@ class Comment(models.Model):
     text = models.CharField(max_length=2200)
     post = models.ForeignKey(Posts, on_delete=models.CASCADE, related_name="comments")
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    date_posted = models.DateTimeField(default=timezone.now())
+    date_posted = models.DateTimeField(default=timezone.now)
 
     def __str__(self):
         return self.text
