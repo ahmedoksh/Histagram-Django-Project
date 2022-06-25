@@ -7,7 +7,7 @@ from PIL import Image
 
 class Posts(models.Model):
     caption = models.CharField(max_length=2200)
-    date_posted = models.DateTimeField(default=timezone.now())
+    date_posted = models.DateTimeField(default=timezone.now)
     image = models.ImageField(upload_to="PostsImages")
     user = ForeignKey(User, on_delete=models.CASCADE, related_name="userposts")
 
