@@ -1,0 +1,58 @@
+{% extends "posts/base.html" %}
+{% block content %}
+
+<div class="col-md-1"></div>
+<div class="col-md-30">
+
+<div class="card m-2 " style="width: 80rem;">
+   <div style='display:flex; justify-content:space-between;'>
+      <div style='display: flex; align-items: center'>
+      <img class="rounded-circle article-img m-2" src="{{ object.user.profile.picture.url }}" />
+      <a class="text-decoration-none text-dark " href="{% url 'profile' object.user.profile.pk %}">
+         <h6>{{object.user.username}}</h6>
+      </a>
+      {% if user == object.user %}
+      <a href="{% url 'delete-post' object.pk %}" class="btn btn-secondary btn-sm right m-4 ">delete</a>
+      {% endif %}
+      </div>  
+   </div>  
+
+   <img class="card-img-body" src="{{ object.image.url }}" alt="Card image cap">
+   <div class="card-body d-flex flex-row m-0 p-0 pt-1"> 
+      <a class="card-title text-decoration-none text-dark" href="{% url 'profile' object.user.profile.pk %}">
+         <h6 class="m-1">{{object.user.username}} </h6>
+      </a>
+     <p class="card-text m-0.9">{{ object.caption}}</p>
+
+   </div>
+   <div class="m-0 p-0 pt-1">
+      <h6 class="m-1">Comments:</h6>
+   </div>
+   {% for comment in object.comments.all  %}
+   <div class="card-body d-flex flex-row m-0 p-0 pt-1">
+   <a class="card-title text-decoration-none text-dark m-0" href="{% url 'profile' comment.user.profile.pk %}">
+   <h6 class="m-1">{{comment.user.username}} </h6>
+   </a>  
+   <p class="card-text m-0.9">{{ comment.text}}</p>
+   </div>
+   <div class="mt-2">
+      {% if user == comment.user %} 
+    
+      <a href="{% url 'update-comment' comment.pk %}" class="text-muted m-2"><small>Edit</small></a>
+      <a href="{% url 'delete-comment' comment.pk %}" class="text-muted"><small>Delete</small></a>
+
+
+      {% endif %}
+   </div>
+  {% endfor %}
+
+      <div class="float-right">
+      <a href="{% url 'add-comment' object.id %}" class="btn btn-outline-primary btn-sm right m-1 ">Add Comment</a>
+      </div>
+
+</div>
+</div>
+<div class="col-md-1"></div>
+
+
+{% endblock %}

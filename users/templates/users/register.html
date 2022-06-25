@@ -1,0 +1,18 @@
+{% extends "posts/base.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+   <div>
+      <form method="POST">
+         <fieldset>
+            <legend >INSTA</legend>
+            <p class="border-bottom mb- text-center">Sign up to see photos and videos <br> from your friends.</p>
+            {% csrf_token %}
+            {{ form|crispy }}
+         </fieldset>
+         <button class="btn btn-primary" type="submit">Sign Up</button>
+      </form>
+      <div class='muted'>
+         Have an account <a href="{% url 'login' %}"> Log In</a>
+      </div>
+   </div>
+{% endblock %}

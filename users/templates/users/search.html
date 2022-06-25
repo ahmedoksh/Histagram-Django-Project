@@ -1,0 +1,20 @@
+{% extends "posts/base.html" %}
+{% block content %}
+
+
+<h1 class="m-3">Search Results</h1>
+
+{% for profile in object_list %}
+<div class="media m-3 shadow-lg p-3 bg-white rounded" style='display:flex'>
+   <a href="{% url 'profile' profile.pk %}">
+      <img src="{{ profile.picture.url }}" class="rounded-circle article-img" alt="...">
+   </a>
+   <div class="media-body">
+     <h5 class="mt-0">{{profile.user.username}}</h5>
+   </div>
+</div>
+{% endfor %}
+
+
+
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "posts/base.html" %}
+{% block content %}
+        <form method="POST">
+           {% csrf_token %}
+            <h2> Are you sure you want to delete your post?</h2>
+
+            
+            <button class="btn btn-outline-danger  mt-1 mb-1 mr-1 ml-1" type="submit">Yes Delete</button>
+
+            <a class="btn btn-outline-secondary  mt-1 mb-1 mr-1 ml-1" href="{% url 'homepage' %}">Cancel</a>
+            </div>
+        </form>
+
+{% endblock %}
+
+

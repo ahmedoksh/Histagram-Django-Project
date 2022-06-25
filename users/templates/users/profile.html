@@ -1,0 +1,45 @@
+{% extends "posts/base.html" %}
+{% block content %}
+<div class="col-md-1"></div>
+<div class="col-md-50">
+
+   <div class="card shadow p-4 m-4 bg-white rounded" style="width: 50rem;">
+    <div class="media " style='display:flex'>
+      <img class="rounded-circle account-img" src="{{ object.picture.url}}">
+      <div class="media-body">
+        <h2 class="account-heading">{{ object.user.username }}</h2>
+        <h6 class="m-2" >{{ object.name }}</h6>
+        <h6 class="m-2">{{ object.status }}</p>
+
+    
+      </div>
+
+    </div>
+    {% if user == object.user %}
+    <div class="row">
+      <div class="col text-center">
+         <a href="{% url 'update-profile' object.pk %}" class="btn btn-outline-primary btn-sm  w-50" >Edit Profile</a>
+      </div>
+   </div>
+   {% endif %}
+   </div>
+
+   {% for post in object.user.userposts.all %}
+
+   <a href="{% url 'detail-post' post.pk %}">
+   <div class="card shadow p-0 m-4 bg-white rounded" style="width: 50rem;"> 
+      <img class="card-img-body rounded" src="{{ post.image.url }}" alt="Card image cap"> 
+   </div>
+   </a>
+
+   {% endfor %}
+
+
+</div>
+<div class="col-md-1"></div>
+
+
+   {% endblock %}
+
+
+
