@@ -6,7 +6,7 @@ from django.db.models.deletion import CASCADE
 # Create your models here.
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
-    picture = models.ImageField(default=".DefaultPP.jpg", upload_to="ProfilePictures")
+    picture = models.ImageField(default="DefaultPP.jpg", upload_to="ProfilePictures")
     status = models.CharField(max_length=300, default="")
     name = models.CharField(max_length=150, default="")
 
