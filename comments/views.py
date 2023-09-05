@@ -28,16 +28,15 @@ class CommentDeleteView(
 ):
     model = Comment
     success_message = (
-        "Your comment has been deleted"  # it is not working and I dont know why
+        "Your comment has been deleted" 
     )
     success_url = reverse_lazy("homepage")
     template_name = "comments/delete.html"
 
     def test_func(self):
-        comment = self.get_object()  # that gets the post that we are trying to update
-        if (
-            self.request.user == comment.user
-        ):  # this gets the current login user and check if it is equal to the author of the post we are trying to update
+        comment = self.get_object()
+        # Checking if the current login user is the author of the post we are trying to delete
+        if (self.request.user == comment.user):
             return True
         return False
 
@@ -52,10 +51,9 @@ class CommentUpdateView(
     success_message = "Your post has been updated"
 
     def test_func(self):
-        comment = self.get_object()  # that gets the post that we are trying to update
-        if (
-            self.request.user == comment.user
-        ):  # this gets the current login user and check if it is equal to the author of the post we are trying to update
+        comment = self.get_object()
+        # Checking if the current login user is the author of the post we are trying to update
+        if (self.request.user == comment.user):
             return True
         return False
 
