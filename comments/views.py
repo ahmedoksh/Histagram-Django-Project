@@ -14,11 +14,16 @@ class CommentCreatView(LoginRequiredMixin, CreateView):
     success_url = reverse_lazy("homepage")
 
     def form_valid(self, form):
+        '''
+        This function adds the current login user and post's information to comment 
+        and check if the post id is valid
+        '''
         form.instance.user = self.request.user
         form.instance.post_id = self.kwargs["pk"]
         return super().form_valid(form)
 
     def get_success_url(self):
+        '''This function is used to redirect to the post detail page after creating the comment'''
         post_id = self.object.post.id
         return reverse("detail-post", kwargs={"pk": post_id})
 
@@ -34,8 +39,11 @@ class CommentDeleteView(
     template_name = "comments/delete.html"
 
     def test_func(self):
+        '''
+        This function is called before deleting comment to check if the current 
+        login user is the author of the post we are trying to delete
+        '''
         comment = self.get_object()
-        # Checking if the current login user is the author of the post we are trying to delete
         if (self.request.user == comment.user):
             return True
         return False
@@ -51,12 +59,17 @@ class CommentUpdateView(
     success_message = "Your post has been updated"
 
     def test_func(self):
+        '''
+        This function is used to check if the current login user is the author of the post we are trying to update
+        Returns:
+            bool: returns True if the current login user is the author of the post we are trying to update
+        '''
         comment = self.get_object()
-        # Checking if the current login user is the author of the post we are trying to update
         if (self.request.user == comment.user):
             return True
         return False
 
     def get_success_url(self):
+        '''This function is used to redirect to the post detail page after updating the comment'''
         post_id = self.object.post.id
         return reverse("detail-post", kwargs={"pk": post_id})

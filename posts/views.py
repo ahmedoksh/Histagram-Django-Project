@@ -27,6 +27,7 @@ class PostCreatView(LoginRequiredMixin, CreateView):
     success_message = "Your post has been created"
 
     def form_valid(self, form):
+        '''This function adds the current login user to the post and check if the post form is valid'''
         form.instance.user = self.request.user
         return super().form_valid(form)
 
@@ -40,6 +41,12 @@ class PostDeleteView(
     success_message = "Your post has been deleted"
 
     def test_func(self):
+        '''
+        This function is called before deleting post to check if the current login 
+        user ist he author of the post we are trying to delete
+        Returns:
+            (bool): True if the current login user is the author of the post, False otherwise
+        '''
         post = self.get_object()
         if self.request.user == post.user:
             return True

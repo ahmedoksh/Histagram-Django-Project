@@ -7,6 +7,9 @@ from django.utils import timezone
 
 
 class Comment(models.Model):
+    '''
+    This model is used to create a comment on a post, hasing text field and foreign key to post and user
+    '''
     text = models.CharField(max_length=2200)
     post = models.ForeignKey(Posts, on_delete=models.CASCADE, related_name="comments")
     user = models.ForeignKey(User, on_delete=models.CASCADE)

@@ -13,6 +13,10 @@ from django.contrib.auth.decorators import login_required
 
 
 def SignUp(request):
+    '''This function is used to register a new user
+    The function checks if the request method is POST, if it is POST, it will create a new user
+    and redirect to login page, if it is GET, it will render the register page
+    '''
     if request.method == "POST":
         form = SignUpForm(request.POST)
         if form.is_valid():
@@ -25,6 +29,7 @@ def SignUp(request):
 
 @login_required
 def LogOut(request):
+    '''This function is used to logout the current login user and redirect to login page'''
     logout(request)
     return redirect("login")
 
@@ -42,10 +47,12 @@ class ProfileUpdateView(
     fields = ["picture", "name", "status"]
 
     def test_func(self):
-        profile = self.get_object()  # that gets the post that we are trying to update
-        if (
-            self.request.user == profile.user
-        ):  # this gets the current login user and check if it is equal to the author of the post we are trying to update
+        '''This function is used to check if the current login user is the author of the profile we are trying to update
+        Returns:
+            (bool): True if the current login user is the author of the profile, False otherwise
+        '''
+        profile = self.get_object()  # that gets the profile that we are trying to update
+        if (self.request.user == profile.user):  
             return True
         return False
 
@@ -60,13 +67,9 @@ class SearchProfileView(LoginRequiredMixin, ListView):
     model = Profile
     template_name = "users/search.html"
 
-    def get_queryset(self):  # new
+    def get_queryset(self): 
+        '''This function is used to search for a profile by name or username'''
         query = self.request.GET.get("q")
-        """ 
-      object_list = Profile.objects.filter(
-      Q(caption__icontains=query)
-      )
-      """
 
         object_list = Profile.objects.filter(
             Q(name__icontains=query) | Q(user__username__icontains=query)
